@@ -15,4 +15,24 @@ class UserController < ApplicationController
     end
   end
 
+  def add_user
+
+    username = params.fetch("input_username")
+    user = User.new
+    user.username = username
+    user.save
+    redirect_to("/users/" + username)
+
+  end
+
+  def update_user
+    #Parameters: {"edit_username"=>"pointilion", "identifier"=>"121"}
+    id = params.fetch("identifier")
+    new_username = params.fetch("edit_username")
+    user = User.all.where(:id => id)[0]
+    user.username = new_username
+    user.save
+    redirect_to("/users/" + new_username )
+  end
+
 end
